@@ -17,24 +17,30 @@ def landing(request):
 def signin(request):
     if request.user.is_authenticated:
         return redirect('home')
+    
     if request.method == "POST":
         name = request.POST.get("check")
+        
         if name == "old_user":
             username = request.POST.get('username')
             password = request.POST.get('password')
             user = authenticate(request, username=username, password=password)
+            
             if user is not None:
                 # Add backend attribute
                 backend = get_backends()[0].__class__.__name__
                 user.backend = f'django.contrib.auth.backends.{backend}'
                 login(request, user)
                 return redirect('home')
+            
             else:
-                error_message = "Username or password does not exist"
+                messages.error(request, "Username or password does not exist")  # Use messages.error here
+        
         else:
             username = request.POST.get('username')
             password = request.POST.get('password')
             email = request.POST.get('email')
+            
             if User.objects.filter(username=username).exists():
                 messages.error(request, "User already exists")
             else:
@@ -45,7 +51,8 @@ def signin(request):
                 user.backend = f'django.contrib.auth.backends.{backend}'
                 login(request, user)
                 return redirect('registration')
-    return render(request, 'login.html', {'error_message': "Test message"})
+    
+    return render(request, 'login.html')
 
 
 @login_required

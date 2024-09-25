@@ -441,6 +441,9 @@ body {
     color: #EEEEEE !important; /* Force the text color */
 }
 
+#error-container {
+    display: none; /* Hidden initially */
+}
 
   /* Back Button */
 .back-button {
@@ -479,7 +482,7 @@ body {
     animation: fadeout 5s forwards; /* Disappears after 5 seconds */
 }
 
-/* Animation to fade out the container */
+
 @keyframes fadeout {
     0% { opacity: 1; }
     100% { opacity: 0; display: none; }

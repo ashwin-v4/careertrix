@@ -61,16 +61,18 @@
                   <button type="button" class="google-btn">
                     <img src="{% static 'image/google.png' %}" alt="Google" class="google-icon" />
                     <a href="{% provider_login_url 'google' %}?next=/api/home/" style="text-decoration: none;" >Continue with Google</a>
-
-
-
                   </button>
+                  {% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
                 </div>
+                <br>
+                <br>
                 <div class="message-container" style="display: block; color: red;">
                   {% if messages %}
                   <ul class="messages">
                       {% for message in messages %}
-                      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                      <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="color: white; display: block;">{{ message }}</li>
                       {% endfor %}
                   </ul>
                   {% endif %}

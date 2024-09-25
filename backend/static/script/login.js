@@ -16,6 +16,17 @@ const handleOnMove = e => {
 
   letters.innerText = randomString(0);    
 }
+// Example: Assuming you have a method to handle errors
+function displayError(message) {
+    const messageContainer = document.querySelector('.message-container');
+    const errorMessage = document.createElement('li');
+    errorMessage.className = 'error';
+    errorMessage.textContent = message;
+
+    // Append to the message container
+    messageContainer.appendChild(errorMessage);
+    messageContainer.style.display = 'block'; // Ensure it is visible
+}
 
 card.onmousemove = e => handleOnMove(e);
 card.ontouchmove = e => handleOnMove(e.touches[0]);
