@@ -1,0 +1,96 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+
+.navbar {
+    background-color: black;
+    color: white;
+    width: 300px;
+    padding: 40px;
+    border-radius: 15px;
+    margin: 20px;
+    box-sizing: border-box;
+    position: fixed;
+    height: 45%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.navbar h2 {
+    margin: 0;
+    font-size: 28px;
+    text-align: center;
+}
+
+.navbar ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 30px;
+}
+
+.navbar li {
+    margin: 25px 0;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    transition: color 0.3s;
+}
+
+.navbar a:hover {
+    color: yellow;
+    cursor: pointer;
+}
+
+.settings-links {
+    padding-left: 20px;
+}
+
+.section-box {
+    background-color: white;
+    border-radius: 15px;
+    padding: 30px;
+    margin: 20px 20px 20px 350px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-size: 18px;
+}
+
+h3, h4 {
+    margin-top: 0;
+}
+
+.accent-button {
+    background-color: cyan;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.accent-button:hover {
+    background-color: darkcyan;
+}
+
+input[type="text"], input[type="password"], input[type="email"], select {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.privacy-section {
+    margin-bottom: 20px; /* Adds space between privacy sections */
+}
+
+.privacy-section h4 {
+    margin-bottom: 8px; /* Adds space below the subsection titles */
+}
