@@ -60,7 +60,7 @@
                 <div class="input-box google-login animation" style="--li: 22; --S: 6">
                   <button type="button" class="google-btn">
                     <img src="{% static 'image/google.png' %}" alt="Google" class="google-icon" />
-                    <a href="{% provider_login_url 'google' %}?next=/api/home/">Continue with Google</a>
+                    <a href="{% provider_login_url 'google' %}?next=/api/home/" style="text-decoration: none;" >Continue with Google</a>
 
 
 
@@ -124,7 +124,7 @@
                 <div class="input-box google-login animation" style="--li: 22; --S: 6">
                   <button type="button" class="google-btn">
                     <img src="{% static 'image/google.png' %}" alt="Google" class="google-icon" />
-                    <a href="{% provider_login_url 'google' %}?next=/api/home/">Continue With Google</a>
+                    <a href="{% provider_login_url 'google' %}?next=/api/home/" style="text-decoration: none;">Continue With Google</a>
                   </button>
                 </div>
               </form>
@@ -141,5 +141,5 @@
     </div>
   </div>
 </body>
-
+<script src="{% static 'script/login.js' %}"></script>
 </html>

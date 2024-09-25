@@ -157,3 +157,5 @@ AUTHENTICATION_BACKENDS = (
 )
 # settings.py
 LOGIN_URL = '/api/login/'  # Redirect to the login page
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'

@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_backends
+
 
 def landing(request):
     if request.user.is_authenticated:
@@ -22,10 +24,13 @@ def signin(request):
             password = request.POST.get('password')
             user = authenticate(request, username=username, password=password)
             if user is not None:
+                # Add backend attribute
+                backend = get_backends()[0].__class__.__name__
+                user.backend = f'django.contrib.auth.backends.{backend}'
                 login(request, user)
                 return redirect('home')
             else:
-                messages.error(request, "Username or password does not exist")
+                error_message = "Username or password does not exist"
         else:
             username = request.POST.get('username')
             password = request.POST.get('password')
@@ -33,13 +38,14 @@ def signin(request):
             if User.objects.filter(username=username).exists():
                 messages.error(request, "User already exists")
             else:
-                user = User.objects.create(username=username, password=make_password(password),first_name=username,email= email)
+                user = User.objects.create(username=username, password=make_password(password), first_name=username, email=email)
                 user.save()
-                login(request,user)
+                # Add backend attribute
+                backend = get_backends()[0].__class__.__name__
+                user.backend = f'django.contrib.auth.backends.{backend}'
+                login(request, user)
                 return redirect('home')
-    return render(request,'login.html',{'messages': messages.get_messages(request)})
-    
-
+    return render(request, 'login.html', {'error_message': "Test message"})
 
 
 @login_required

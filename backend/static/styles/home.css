@@ -37,8 +37,8 @@ body {
 }
 
 .logo {
-    height: 40px;
-    width: auto;
+    height: 60px;
+    width: 80px;
     margin-right: 10px;
 }
 
@@ -86,7 +86,7 @@ body {
 
 /* Home Section Styling */
 .home-section {
-    background: url('/assests/hero-bg.png') no-repeat center center/cover;
+    background: url('/frontend/home/assests/hero-bg.png') no-repeat center center/cover;
     padding: 120px 20px;
     text-align: center;
     position: relative;
@@ -375,14 +375,14 @@ html {
 
 /* Job Tracking Section */
 #job-tracking {
-    background: url('/assests/hero-bg.png') no-repeat center center/cover;
+    background: url('/frontend/home/assests/hero-bg.png') no-repeat center center/cover;
     background-size: cover;
     transform: scaleX(1); /* Mirror the background image */
 }
 
 /* Mock Interview Section */
 #mock-interview {
-    background: url('/assests/hero-bg.png') no-repeat center center/cover;
+    background: url('/frontend/home/assests/hero-bg.png') no-repeat center center/cover;
     background-size: cover;
 }
 
@@ -550,7 +550,7 @@ html {
 }
 
 .column1 p {
-    font-size: 25px;
+    font-size: 18px;
     line-height: 1.5;
 }
 
@@ -740,13 +740,6 @@ html {
     transform: translate(0%, 15%) rotate(10deg);
   }
   
-  .fancy:hover > .outer:nth-child(9) {
-    transform: translate(0%, -50%) rotate(8deg);
-  }
-  
-  .fancy:hover > .outer:nth-child(10) {
-    transform: translate(0%, 15%) rotate(-6deg);
-  }
 
 
   @keyframes background-pan {
