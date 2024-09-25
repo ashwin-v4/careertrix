@@ -1,10 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# models.py
-
-from django.db import models
-from django.contrib.auth.models import User
 
 class CareerGoal(models.Model):
     AVAILABILITY_CHOICES = [

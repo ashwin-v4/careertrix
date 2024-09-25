@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login , logout
 from .models import CareerGoal
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_backends
-
+from django.contrib.auth import update_session_auth_hash
 
 def landing(request):
     if request.user.is_authenticated:
@@ -82,3 +82,53 @@ def registration(request):
         career_goal.save()
         return redirect('home')
     return render(request,'register.html')
+
+
+
+@login_required
+def settings(request):
+    if request.method == 'POST':
+        form_type = request.POST.get('form_type')
+
+        if form_type == 'profile_info':
+            first_name = request.POST.get('first-name')
+            last_name = request.POST.get('last-name')
+            username = request.POST.get('username')
+            email = request.POST.get('email')
+            
+            request.user.first_name = first_name
+            request.user.last_name = last_name
+            request.user.username = username
+            request.user.email = email
+            request.user.save()
+            
+            messages.success(request, 'Profile info updated successfully!')
+
+        elif form_type == 'password_change':
+            current_password = request.POST.get('current-password')
+            new_password = request.POST.get('new-password')
+            confirm_password = request.POST.get('confirm-password')
+
+            if not request.user.check_password(current_password):
+                messages.error(request, 'Current password is incorrect.')
+                return redirect('settings')
+
+            if new_password != confirm_password:
+                messages.error(request, 'Passwords do not match.')
+                return redirect('settings')
+            request.user.set_password(new_password)
+            request.user.save()
+            update_session_auth_hash(request, request.user)
+
+            messages.success(request, 'Password updated successfully!')
+
+        return redirect('settings')
+    context = {
+        'user': request.user,
+    }
+    return render(request, 'settings.html', context)
+
+
+def singout(request):
+    logout(request)
+    return redirect('landing')
