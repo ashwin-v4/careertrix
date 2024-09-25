@@ -58,8 +58,8 @@
         </nav>
         <!-- Logout Button -->
         <a href="" id="profile-user"
-          ><i class="fa fa-user-circle fa-2x"></i><br />OJAS</a
-        >
+          style="text-decoration: none;" ><i class="fa fa-user-circle fa-2x"></i><br/><h3>{{ request.user.username }}</h3></a
+          >
         <a href="{% url 'signout' %}" class="logout-btn">Logout</a>
       </div>
       </div>

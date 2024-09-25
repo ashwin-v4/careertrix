@@ -57,6 +57,7 @@ def signin(request):
 
 @login_required
 def home(request):
+    username = request.user.username
     return render(request, 'home.html')
 
 @login_required
