@@ -14,7 +14,7 @@ const handleOnMove = e => {
   letters.style.setProperty("--x", `${x}px`);
   letters.style.setProperty("--y", `${y}px`);
 
-  letters.innerText = randomString(10000);    
+  letters.innerText = randomString(0);    
 }
 
 card.onmousemove = e => handleOnMove(e);
