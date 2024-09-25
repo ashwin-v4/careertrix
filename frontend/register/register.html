@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>register</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+
+<body>
+    <header class="header">
+        <h1>Help Us Understand Your Goals</h1>
+    </header>
+
+    <div class="form-container">
+        <form id="career-goals-form">
+            <!-- Job Details Section -->
+            <section class="form-section">
+                <h2>Job Details</h2>
+                <label for="current-job-title">Current Job Title:</label>
+                <input type="text" id="current-job-title" name="current-job-title" placeholder="Coal Miner">
+
+                <label for="goal-job-title">Goal Job Title:</label>
+                <input type="text" id="goal-job-title" name="goal-job-title" placeholder="Software Engineer">
+            </section>
+
+            <!-- Education Details Section -->
+            <section class="form-section" id="education-section">
+                <h2>Education Details</h2>
+                <div class="education-set">
+                    <label for="education">Education:</label>
+                    <select id="education" name="education">
+                        <option value="btech">B.Tech</option>
+                        <option value="msc">M.Sc</option>
+                    </select>
+
+                    <label for="education-field">Education Field:</label>
+                    <select id="education-field" name="education-field">
+                        <option value="cs">Computer Science</option>
+                        <option value="ee">Electrical Engineering</option>
+                    </select>
+
+                    <label for="graduation-year">Year of Graduation:</label>
+                    <input type="date" id="graduation-year" name="graduation-year">
+                </div>
+                <button type="button" class="add-more" id="add-more-education">Add More Education</button>
+            </section>
+
+            <!-- Skills Section -->
+            <section class="form-section">
+                <h2>Skills</h2>
+                <label for="technical-skills">Technical Skills:</label>
+                <textarea id="technical-skills" name="technical-skills"
+                    placeholder="Software Development, Data Analytics"></textarea>
+
+                <label for="soft-skills">Soft Skills:</label>
+                <textarea id="soft-skills" name="soft-skills" placeholder="Team player, Leader"></textarea>
+            </section>
+
+            <!-- Experience Section -->
+            <section class="form-section" id="experience-section">
+                <h2>Experience</h2>
+                <div class="experience-set">
+                    <label for="experience-job-title">Job Title:</label>
+                    <input type="text" id="experience-job-title" name="experience-job-title" placeholder="Data Analyst">
+
+                    <label for="experience-duration">Duration:</label>
+                    <input type="number" id="experience-duration" name="experience-duration" placeholder="2 years">
+
+                    <label for="year-of-resignation">Year of Resignation:</label>
+                    <input type="date" id="year-of-resignation" name="year-of-resignation">
+                </div>
+                <button type="button" class="add-more" id="add-more-experience">Add More Experience</button>
+            </section>
+
+            <!-- Job Preferences Section -->
+            <!-- Job Preferences Section -->
+            <!-- Job Preferences Section -->
+            <div id="job-preferences-section" class="form-section">
+                <h2>Job Preferences</h2>
+                <h3>Geographical Preferences:</h3> <br>
+                <label for="city1">City 1:</label>
+                <input type="text" name="city1" placeholder="Chennai">
+
+                <label for="city2">City 2:</label>
+                <input type="text" name="city2" placeholder="Mumbai">
+
+                <label for="city3">City 3:</label>
+                <input type="text" name="city3" placeholder="Delhi">
+
+                <h3>Availability:</h3><br>
+
+                <div class="availability-options">
+
+                    <label for="full-time">
+                        <input type="checkbox" id="full-time" name="availability" value="full-time" class="checkbox"> Full Time
+                    </label>
+                    <label for="part-time">
+                        <input type="checkbox" id="part-time" name="availability" value="part-time" class="checkbox"> Part Time
+                    </label>
+                    <label for="freelance">
+                        <input type="checkbox" id="freelance" name="availability" value="freelance" class="checkbox"> Freelance
+                    </label>
+                    <label for="internship">
+                        <input type="checkbox" id="internship" name="availability" value="internship" class="checkbox"> Internship
+                    </label>
+                </div>
+
+                <label for="resume-upload">Upload Resume:</label>
+                <input type="file" name="resume-upload" id="resume-upload">
+            </div>
+
+
+
+            <!-- Submit Button -->
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script src="register.js"></script>
+</body>
+
+</html>

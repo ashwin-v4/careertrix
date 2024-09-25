@@ -1,0 +1,165 @@
+/* General Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #222831;
+    color: #EEEEEE;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+.form-container {
+    background-color: #393E46;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 1200px; /* Increased the max width to make the form wider */
+    margin: 0 auto;
+    width: 100%;
+}
+
+.form-section {
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin-bottom: 10px;
+    color: #00ADB5;
+    font-size: 1.5em;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 15px; /* Increased padding for larger input fields */
+    margin-bottom: 10px;
+    border: 1px solid #00ADB5;
+    border-radius: 5px;
+    background-color: #EEEEEE;
+    color: #222831;
+    font-size: 1em; /* Larger font for better readability on wide forms */
+}
+
+textarea {
+    resize: vertical;
+}
+
+button {
+    background-color: #00ADB5;
+    color: #222831;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+button:hover {
+    background-color: #00CED1;
+}
+
+/* Add More Buttons */
+.add-more {
+    display: inline-block;
+    background-color: #00ADB5;
+    color: #222831;
+    padding: 8px 15px; /* Increased padding */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.add-more:hover {
+    background-color: #00CED1;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .form-container {
+        padding: 20px;
+        max-width: 900px; /* Slightly narrower for tablet view */
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.2em;
+    }
+}
+
+@media (max-width: 768px) {
+    .form-container {
+        padding: 15px;
+        max-width: 700px; /* Narrower for mobile view */
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    h2 {
+        font-size: 1.1em;
+    }
+}
+
+@media (max-width: 576px) {
+    .form-container {
+        padding: 10px;
+        max-width: 100%; /* Full width for very small screens */
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    h2 {
+        font-size: 1em;
+    }
+}
+.availability-options {
+    display: flex;
+    justify-content: space-between; /* Evenly distributes checkboxes */
+    flex-wrap: wrap; /* Allows checkboxes to wrap if necessary */
+    align-items: center; /* Vertically center aligns items */
+    gap: 10px; /* Adjust this value for more or less space between checkboxes */
+    margin-bottom: 20px;
+    padding: 0 20px; /* Optional padding for the container */
+    width: 100%; /* Use all available width */
+}
+
+.availability-options label {
+    display: flex; /* Changed to flex for better alignment */
+    align-items: center; /* Ensures checkbox is vertically centered with text */
+    white-space: nowrap; /* Prevents text from breaking into multiple lines */
+}
+
+.availability-options input[type="checkbox"] {
+    margin-right: 10px; /* Adds space specifically on the right of the checkbox */
+}
+
+
+label
+{
+    margin-left: 5px;
+}
+
