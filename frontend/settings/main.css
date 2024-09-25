@@ -350,7 +350,7 @@
  .link {
    color: white;
    display: block;
-   font-family: 'Permanent Marker', cursive;
+   font-family: 'Poppins', sans-serif;
    font-size: clamp(1em, 2vmin, 3em);
    padding: clamp(0.25em, 1vmin, 1em) clamp(1em, 4vmin, 4em);
    position: relative;
