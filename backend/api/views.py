@@ -78,7 +78,8 @@ def registration(request):
             city1=request.POST.get('city1'),
             city2=request.POST.get('city2'),
             city3=request.POST.get('city3'),
-            availability=request.POST.get('availability')
+            availability=request.POST.get('availability'),
+            resume=request.FILES.get('resume-upload') 
         )
         career_goal.save()
         return redirect('home')
@@ -87,7 +88,7 @@ def registration(request):
 
 
 @login_required
-def settings(request):
+def setting(request):
     if request.method == 'POST':
         form_type = request.POST.get('form_type')
 
@@ -129,6 +130,10 @@ def settings(request):
     }
     return render(request, 'settings.html', context)
 
+from django.views.generic import TemplateView
+
+class TestView(TemplateView):
+    template_name = 'test.html'
 
 def singout(request):
     logout(request)

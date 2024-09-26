@@ -25,7 +25,13 @@ class CareerGoal(models.Model):
     city2 = models.CharField(max_length=100, null=True) 
     city3 = models.CharField(max_length=100, null=True) 
     availability = models.CharField(max_length=10, choices=AVAILABILITY_CHOICES)
-    resume = models.FileField(upload_to='resumes/',null=True, blank=True)
+    
+    # Custom upload path for storing resume as username.pdf
+    def user_directory_path(instance, filename):
+        # file will be uploaded to MEDIA_ROOT/resumes/username.pdf
+        return f'resumes/{instance.user.username}.pdf'
+
+    resume = models.FileField(upload_to=user_directory_path, null=True, blank=True)
 
     def __str__(self):
         return f"{self.user.username}'s Career Goals"

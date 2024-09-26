@@ -53,13 +53,13 @@
             <li><a href="#job-alerts">Job Alerts</a></li>
             <li><a href="#mock-interview">Mock Interview</a></li>
             <li><a href="#mentorship">Networking</a></li>
-            <li><a href="{% url 'settings' %}">Profile</a></li>
+            <li><a href="{% url 'setting' %}">Profile</a></li>
           </ul>
         </nav>
         <!-- Logout Button -->
         <a href="" id="profile-user"
-          style="text-decoration: none;" ><i class="fa fa-user-circle fa-2x"></i><br/><h3>{{ request.user.username }}</h3></a
-          >
+          ><i class="fa fa-user-circle fa-2x"></i><br />OJAS</a
+        >
         <a href="{% url 'signout' %}" class="logout-btn">Logout</a>
       </div>
       </div>
@@ -69,18 +69,18 @@
       <aside class="side-nav">
         <ul>
           <li>
-            <a class="link" href="">Job and Skill Selection</a>
+            <a class="link" href="#skill">Job and Skill Selection</a>
           </li>
-          <li><a class="link" href="test.html">Roadmap</a></li>
-          <li><a class="link" href="">Career Predictor</a></li>
-          <li><a class="link" href="">Trending Jobs</a></li>
+          <li><a class="link" href="{% url 'test' %}">Roadmap</a></li>
+          <li><a class="link" href="#career">Career Predictor</a></li>
+          <li><a class="link" href="#trending-jobs">Trending Jobs</a></li>
         </ul>
       </aside>
 
       <!-- Main Content Area -->
-      <main class="content-area">
+      <main class="content-area" >
 <!-- Job and Skill Selection Section -->
-<section class="job-skill-selection">
+<section class="job-skill-selection" id="skill">
   <h2>Job and Skill Selection</h2>
   <div id="col" style="display: flex; flex-direction: column;">
     <label for="job-dropdown">Recommended Jobs:</label>
@@ -102,6 +102,8 @@
 
   <button id="generate-button">Generate</button>
 
+  <h2>Select prefered job and a skill.</h2>
+
 
 </section>
 
@@ -113,9 +115,9 @@
 <div id="roadmap-section" style="display:none;"></div>
 </section>
 
-
-        <!-- Career Predictor Section -->
-<section class="career-predictor">
+                       <!-- Career Predictor Section -->
+<!-- Career Predictor Section -->
+<section class="career-predictor" id="career">
   <h2>Career Predictor</h2><br>
   <h3>Enter Details</h3>
   <table>
@@ -171,95 +173,161 @@
     <button class="see-more">See More</button>
   </section>
 </section>
-
-       
-        <section class="trending-jobs">
+        <section class="trending-jobs" id="trending-jobs">
           <h1>Trending Jobs</h1>
-          <div class="job-grid">
-            <div class="job-card">
-              <img
-                src="{% static 'image/company-logo1.jpg' %}"
-                alt="Company 1 Logo"
-                class="company-logo"
-              />
-              <h2>Software Engineer</h2>
-              <p class="company-name">Tech Corp</p>
-              <p class="job-type">IT, Full Time</p>
-              <p class="experience">Experience: 2+ years</p>
-              <p class="closing-date">Application Closing: Oct 15, 2024</p>
-              <a href="apply1.html" class="apply-btn">Apply Now</a>
+          <div id="cards">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-image">
+                  <i class="fa-duotone fa-apartment"></i>
+                </div>
+                <div class="card-info-wrapper">
+                  <div class="card-info">
+                    <i class="fa-duotone fa-apartment"></i>
+                    <div class="card-info-title">
+                      <img
+                        src="{% static 'image/company-logo1.jpg' %}"
+                        alt="Company 1 Logo"
+                        class="company-logo"
+                      />
+                      <h2>Software Engineer</h2>
+                      <p class="company-name">Tech Corp</p>
+                      <p class="job-type">IT, Full Time</p>
+                      <p class="experience">Experience: 2+ years</p>
+                      <p class="closing-date">Application Closing: Oct 15, 2024</p>
+                      <a href="apply1.html" class="apply-btn">Apply Now</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-
-            <div class="job-card">
-              <img
-                src="{% static 'image/company-logo2.jpg'%}"
-                alt="Company 2 Logo"
-                class="company-logo"
-              />
-              <h2>Product Manager</h2>
-              <p class="company-name">Innovate Ltd</p>
-              <p class="job-type">Management, Full Time</p>
-              <p class="experience">Experience: 5+ years</p>
-              <p class="closing-date">Application Closing: Oct 20, 2024</p>
-              <a href="apply2.html" class="apply-btn">Apply Now</a>
+            <div class="card">
+              <div class="card-content">
+                <div class="card-image">
+                  <i class="fa-duotone fa-unicorn"></i>
+                </div>
+                <div class="card-info-wrapper">
+                  <div class="card-info">
+                    <i class="fa-duotone fa-unicorn"></i>
+                    <div class="card-info-title">
+                      <img
+                        src="{% static 'image/company-logo2.jpg' %}"
+                        alt="Company 2 Logo"
+                        class="company-logo"
+                      />
+                      <h2>Product Manager</h2>
+                      <p class="company-name">Innovate Ltd</p>
+                      <p class="job-type">Management, Full Time</p>
+                      <p class="experience">Experience: 5+ years</p>
+                      <p class="closing-date">Application Closing: Oct 20, 2024</p>
+                      <a href="apply2.html" class="apply-btn">Apply Now</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-
-            <div class="job-card">
-              <img
-                src="{% static 'image/company-logo3.jpg'%}"
-                alt="Company 3 Logo"
-                class="company-logo"
-              />
-              <h2>Data Analyst</h2>
-              <p class="company-name">Analytics Inc</p>
-              <p class="job-type">IT, Part Time</p>
-              <p class="experience">Experience: 1+ years</p>
-              <p class="closing-date">Application Closing: Oct 30, 2024</p>
-              <a href="apply3.html" class="apply-btn">Apply Now</a>
+            <div class="card">
+              <div class="card-content">
+                <div class="card-image">
+                  <i class="fa-duotone fa-blender-phone"></i>
+                </div>
+                <div class="card-info-wrapper">
+                  <div class="card-info">
+                    <i class="fa-duotone fa-blender-phone"></i>
+                    <div class="card-info-title">
+                      <img
+                        src="{% static 'image/company-logo3.jpg' %}"
+                        alt="Company 3 Logo"
+                        class="company-logo"
+                      />
+                      <h2>Data Analyst</h2>
+                      <p class="company-name">Analytics Inc</p>
+                      <p class="job-type">IT, Part Time</p>
+                      <p class="experience">Experience: 1+ years</p>
+                      <p class="closing-date">Application Closing: Oct 30, 2024</p>
+                      <a href="apply3.html" class="apply-btn">Apply Now</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <!-- Second Row of Jobs -->
-            <div class="job-card">
-              <img
-                src="{% static 'image/company-logo4.jpg'%}"
-                alt="Company 4 Logo"
-                class="company-logo"
-              />
-              <h2>UI/UX Designer</h2>
-              <p class="company-name">DesignPro</p>
-              <p class="job-type">Design, Full Time</p>
-              <p class="experience">Experience: 3+ years</p>
-              <p class="closing-date">Application Closing: Nov 1, 2024</p>
-              <a href="apply4.html" class="apply-btn">Apply Now</a>
+            <div class="card">
+              <div class="card-content">
+                <div class="card-image">
+                  <i class="fa-duotone fa-person-to-portal"></i>
+                </div>
+                <div class="card-info-wrapper">
+                  <div class="card-info">
+                    <i class="fa-duotone fa-person-to-portal"></i>
+                    <div class="card-info-title">
+                      <img
+                        src="{% static 'image/company-logo4.jpg' %}"
+                        alt="Company 4 Logo"
+                        class="company-logo"
+                        style="height: 100px"
+                      />
+                      <h2>UI/UX Designer</h2>
+                      <p class="company-name">DesignPro</p>
+                      <p class="job-type">Design, Full Time</p>
+                      <p class="experience">Experience: 3+ years</p>
+                      <p class="closing-date">Application Closing: Nov 1, 2024</p>
+                      <a href="apply4.html" class="apply-btn">Apply Now</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-
-            <div class="job-card">
-              <img
-                src="{% static 'image/company-logo5.jpg'%}"
-                alt="Company 5 Logo"
-                class="company-logo"
-              />
-              <h2>Marketing Specialist</h2>
-              <p class="company-name">MarketMasters</p>
-              <p class="job-type">Marketing, Part Time</p>
-              <p class="experience">Experience: 4+ years</p>
-              <p class="closing-date">Application Closing: Nov 10, 2024</p>
-              <a href="apply5.html" class="apply-btn">Apply Now</a>
+            <div class="card">
+              <div class="card-content">
+                <div class="card-image">
+                  <i class="fa-duotone fa-person-from-portal"></i>
+                </div>
+                <div class="card-info-wrapper">
+                  <div class="card-info">
+                    <i class="fa-duotone fa-person-from-portal"></i>
+                    <div class="card-info-title">
+                      <img
+                        src="{% static 'image/company-logo5.jpg' %}"
+                        alt="Company 5 Logo"
+                        class="company-logo"
+                      />
+                      <h2>Marketing Specialist</h2>
+                      <p class="company-name">MarketMasters</p>
+                      <p class="job-type">Marketing, Part Time</p>
+                      <p class="experience">Experience: 4+ years</p>
+                      <p class="closing-date">Application Closing: Nov 10, 2024</p>
+                      <a href="apply5.html" class="apply-btn">Apply Now</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-
-            <div class="job-card">
-              <img
-                src="{% static 'image/company-logo6.jpg'%}"
-                alt="Company 6 Logo"
-                class="company-logo"
-              />
-              <h2>DevOps Engineer</h2>
-              <p class="company-name">CloudOps</p>
-              <p class="job-type">IT, Full Time</p>
-              <p class="experience">Experience: 3+ years</p>
-              <p class="closing-date">Application Closing: Nov 15, 2024</p>
-              <a href="apply6.html" class="apply-btn">Apply Now</a>
+            <div class="card">
+              <div class="card-content">
+                <div class="card-image">
+                  <i class="fa-duotone fa-otter"></i>
+                </div>
+                <div class="card-info-wrapper">
+                  <div class="card-info">
+                    <div class="card-info-title">
+                      <img
+                        src="{% static 'image/company-logo6.jpg' %}"
+                        alt="Company 6 Logo"
+                        class="company-logo"
+                      />
+                      <h2>DevOps Engineer</h2>
+                      <p class="company-name">CloudOps</p>
+                      <p class="job-type">IT, Full Time</p>
+                      <p class="experience">Experience: 3+ years</p>
+                      <p class="closing-date">Application Closing: Nov 15, 2024</p>
+                      <a href="apply6.html" class="apply-btn">Apply Now</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+      
         </section>
       </main>
     </div>
@@ -288,8 +356,8 @@
         }
       });
       </script>
-    <script src="https://cdn.botpress.cloud/webchat/v2.1/inject.js"></script>
-    <script src="https://mediafiles.botpress.cloud/438149f6-c0d4-4517-86dd-d32819820371/webchat/v2.1/config.js"></script>
-    <script src="main.js"></script>
+      <script src="https://cdn.botpress.cloud/webchat/v2.1/inject.js"></script>
+      <script src="https://mediafiles.botpress.cloud/3177457b-276e-453f-abbe-3fe6165f9843/webchat/v2.1/config.js"></script>
+    <script src="{% static 'script/main.js' %}"></script>
   </body>
 </html>
