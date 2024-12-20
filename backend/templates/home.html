@@ -58,7 +58,7 @@
         </nav>
         <!-- Logout Button -->
         <a href="" id="profile-user"
-          ><i class="fa fa-user-circle fa-2x"></i><br />OJAS</a
+          ><i class="fa fa-user-circle fa-2x"></i><br />{{ request.user.username }}</a
         >
         <a href="{% url 'signout' %}" class="logout-btn">Logout</a>
       </div>
@@ -81,41 +81,25 @@
       <main class="content-area" >
 <!-- Job and Skill Selection Section -->
 <section class="job-skill-selection" id="skill">
-  <h2>Job and Skill Selection</h2>
-  <div id="col" style="display: flex; flex-direction: column;">
-    <label for="job-dropdown">Recommended Jobs:</label>
-    <select id="job-dropdown">
-      <option>Select Option</option>
-      <option>Penetration Tester</option>
-      <option>SOC Analyst</option>
-      <option>Security Architect</option>
-    </select>
-
-    <label for="skills-dropdown">Must Have Skills:</label>
-    <select id="skills-dropdown">
-      <option>Select Option</option>
-      <option>Network Security and Protocols</option>
-      <option>Scripting and Programming</option>
-      <option>Penetration Testing Tools and Frameworks</option>
-    </select>
-  </div>
-
-  <button id="generate-button">Generate</button>
-
-  <h2>Select prefered job and a skill.</h2>
-
-
+  <form action="" method="post">
+    {% csrf_token %}
+    <h2>Roadmap for Desiered Career</h2>
+    <div id="col" style="display: flex; flex-direction: column;">
+      <label for="job-dropdown">Desiered Jobs:</label>
+      <input type="text" name="job-dropdown" id="job-dropdown">
+    </div>
+    <button id="generate-button" type="submit">Generate</button>
+  </form>
 </section>
 
 <section class="roadmap-section" id="roadmap-section" >
   <h2>Roadmap</h2>
   <div id="output-message" style="display:none;">Roadmap generated</div>
-<div id="placeholder-message">Please select job and skill.</div>
 <iframe id="output-iframe" style="display:none;"></iframe>
 <div id="roadmap-section" style="display:none;"></div>
 </section>
 
-                       <!-- Career Predictor Section -->
+<!-- Career Predictor Section -->
 <!-- Career Predictor Section -->
 <section class="career-predictor" id="career">
   <h2>Career Predictor</h2><br>

@@ -7,6 +7,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_backends
 from django.contrib.auth import update_session_auth_hash
+from .gemini_api import get_gemini_response
 
 def landing(request):
     if request.user.is_authenticated:
@@ -58,7 +59,16 @@ def signin(request):
 @login_required
 def home(request):
     username = request.user.username
+
+    if request.method == 'POST':
+        job = request.POST.get('job-dropdown')
+        user_profile = CareerGoal.objects.get(user__username=username)
+        technical_skill = user_profile.technical_skills
+        input_text = f"I have the skills: {technical_skill} and i want the job {job}. give me a mark down of the required skills i am missing just give me the mark down alone like #for main branch and ## for seocnd and ### for 3rd remember give me only markdown"
+        gemini_response = get_gemini_response(input_text)
+        return render(request, 'roadmap.html', {'gemini_response': gemini_response})
     return render(request, 'home.html')
+    
 
 @login_required
 def registration(request):
@@ -113,18 +123,18 @@ def setting(request):
 
             if not request.user.check_password(current_password):
                 messages.error(request, 'Current password is incorrect.')
-                return redirect('settings')
+                return redirect('setting')
 
             if new_password != confirm_password:
                 messages.error(request, 'Passwords do not match.')
-                return redirect('settings')
+                return redirect('setting')
             request.user.set_password(new_password)
             request.user.save()
             update_session_auth_hash(request, request.user)
 
             messages.success(request, 'Password updated successfully!')
 
-        return redirect('settings')
+        return redirect('setting')
     context = {
         'user': request.user,
     }
@@ -138,3 +148,4 @@ class TestView(TemplateView):
 def singout(request):
     logout(request)
     return redirect('landing')
+
