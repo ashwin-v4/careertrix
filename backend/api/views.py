@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_backends
 from django.contrib.auth import update_session_auth_hash
 from .gemini_api import get_gemini_response
+from .utils import extract_text_from_resume, extract_skills_from_text
 
 def landing(request):
     if request.user.is_authenticated:
@@ -63,12 +64,27 @@ def home(request):
     if request.method == 'POST':
         job = request.POST.get('job-dropdown')
         user_profile = CareerGoal.objects.get(user__username=username)
-        technical_skill = user_profile.technical_skills
-        input_text = f"I have the skills: {technical_skill} and i want the job {job}. give me a mark down of the required skills i am missing just give me the mark down alone like #for main branch and ## for seocnd and ### for 3rd remember give me only markdown"
+        entered_skills = user_profile.technical_skills
+
+        resume_text = ""
+        if 'resume-upload' in request.FILES:
+            resume_file = request.FILES['resume-upload']
+            resume_text = extract_text_from_resume(resume_file)
+
+        all_skills = entered_skills  
+        if resume_text:
+            extracted_skills = extract_skills_from_text(resume_text)
+            all_skills += " " + " ".join(extracted_skills)  
+
+        user_profile.technical_skills = all_skills
+        user_profile.save()
+
+        input_text = f"I have the following skills: {all_skills}. I want the job {job}. Please give me a markdown of the required skills I am missing."
         gemini_response = get_gemini_response(input_text)
+
         return render(request, 'roadmap.html', {'gemini_response': gemini_response})
+
     return render(request, 'home.html')
-    
 
 @login_required
 def registration(request):
@@ -89,12 +105,18 @@ def registration(request):
             city2=request.POST.get('city2'),
             city3=request.POST.get('city3'),
             availability=request.POST.get('availability'),
-            resume=request.FILES.get('resume-upload') 
+            resume=request.FILES.get('resume-upload')
         )
+
+        if career_goal.resume:
+            resume_file = career_goal.resume
+            resume_text = extract_text_from_resume(resume_file)  
+            extracted_skills = extract_skills_from_text(resume_text)
+            career_goal.technical_skills += " " + " ".join(extracted_skills)  
+
         career_goal.save()
         return redirect('home')
-    return render(request,'register.html')
-
+    return render(request, 'register.html')
 
 
 @login_required
