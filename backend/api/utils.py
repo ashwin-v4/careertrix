@@ -20,7 +20,7 @@ def extract_skills_from_text(text):
     """
     Sends the extracted resume text to the Gemini API to extract skills.
     """
-    input_text = f"Here is my resume text: {text}. Please extract the skills mentioned in the text. just provide the skill in a comma separated format no headings no spaces just seperated by commas."
+    input_text = f"Here is my resume text: {text}.Please extract the skills mentioned in the text. just provide the skill in a comma separated format no headings no spaces just seperated by commas."
     gemini_response = get_gemini_response(input_text)  
     skills = gemini_response.split(',')
     return [skill.strip() for skill in skills]  

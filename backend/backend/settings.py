@@ -27,10 +27,9 @@ SECRET_KEY = 'django-insecure-&u4fxl_fh!=!o()22%@f_nh=k6j(w+f573t^1pgc+7+tjwfkfp
 SECRET_KEY = 'django-insecure-q)!eyxq6-5+3+!5&^yg+#)&v4%ix2jqjw+76gds^6&va)7446m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
+DEBUG = False
+ALLOWED_HOSTS = ['*']  # Or add specific allowed hosts
+SOCIALACCOUNT_LOGIN_ON_GET = True
 SITE_ID = 3
 # Application definition
 
@@ -54,6 +53,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.google"
 ]
 
+
 SOCIALACCOUNT_PROVIDERS = {
     "google":{
         "SCOPE":[
@@ -63,6 +63,7 @@ SOCIALACCOUNT_PROVIDERS = {
         "AUTH_PARAMS" : {"access_type":"online"}
     }
 }
+LOGIN_REDIRECT_URL = '/api/home/'  # Redirect to the home page
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -72,7 +73,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware',  # add this if error in google login
+    'allauth.account.middleware.AccountMiddleware',
 
 ]
 
@@ -147,9 +148,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',  # Where your static files (CSS, JS) are currently located
-]
+# If you're using a custom static directory, ensure it's set properly:
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # Adjust this based on your project structure
+
+# Static files location for development
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # The directory where collectstatic will store files in production
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

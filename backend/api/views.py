@@ -63,8 +63,13 @@ def home(request):
 
     if request.method == 'POST':
         job = request.POST.get('job-dropdown')
-        user_profile = CareerGoal.objects.get(user__username=username)
-        entered_skills = user_profile.technical_skills
+        
+        try:
+            user_profile = CareerGoal.objects.get(user__username=username)
+            entered_skills = user_profile.technical_skills or ""
+        except CareerGoal.DoesNotExist:
+            entered_skills = ""
+            user_profile = CareerGoal(user=request.user, technical_skills="no skill yet")
 
         resume_text = ""
         if 'resume-upload' in request.FILES:
@@ -79,7 +84,7 @@ def home(request):
         user_profile.technical_skills = all_skills
         user_profile.save()
 
-        input_text = f"I have the following skills: {all_skills}. I want the job {job}. Please give me a markdown of the required skills I am missing."
+        input_text = f"I have the skills: {all_skills} and i want the job {job}. give me a mark down of the required skills i am missing just give me the mark down alone like #for main branch and ## for seocnd and ### for 3rd remember give me only markdown"
         gemini_response = get_gemini_response(input_text)
 
         return render(request, 'roadmap.html', {'gemini_response': gemini_response})
@@ -172,3 +177,5 @@ def singout(request):
     logout(request)
     return redirect('landing')
 
+def error404(request, exception):
+    return render(request, '404.html', status=404)
