@@ -74,7 +74,7 @@ def home(request):
         all_skills = entered_skills  
         if resume_text:
             extracted_skills = extract_skills_from_text(resume_text)
-            all_skills += " " + " ".join(extracted_skills)  
+            all_skills += ", " + ", ".join(extracted_skills)  
 
         user_profile.technical_skills = all_skills
         user_profile.save()
@@ -112,7 +112,8 @@ def registration(request):
             resume_file = career_goal.resume
             resume_text = extract_text_from_resume(resume_file)  
             extracted_skills = extract_skills_from_text(resume_text)
-            career_goal.technical_skills += " " + " ".join(extracted_skills)  
+            if extracted_skills:
+                career_goal.technical_skills += ", " + ", ".join(extracted_skills)  
 
         career_goal.save()
         return redirect('home')

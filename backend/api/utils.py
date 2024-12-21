@@ -4,17 +4,14 @@ import os
 from .gemini_api import get_gemini_response
 
 def extract_text_from_resume(resume_file):
-    resume_path = os.path.join(settings.MEDIA_ROOT, 'resumes', resume_file.name)
-    
     try:
-        doc = fitz.open(resume_path)
+        doc = fitz.open(stream=resume_file.read(), filetype="pdf")
         full_text = ""
-        for page_num in range(len(doc)):
-            page = doc.load_page(page_num)
+        for page in doc:
             full_text += page.get_text()
         return full_text
     except Exception as e:
-        print(f"Error opening file: {e}")
+        print(f"Error processing the resume: {e}")
         return ""
 
 
