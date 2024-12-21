@@ -35,3 +35,10 @@ class CareerGoal(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s Career Goals"
+
+
+
+
+class GeminiResonse(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    response = models.CharField(max_length=255)

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login , logout
-from .models import CareerGoal
+from .models import CareerGoal,GeminiResonse
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_backends
@@ -64,28 +64,38 @@ def home(request):
     if request.method == 'POST':
         job = request.POST.get('job-dropdown')
         
+        # Try to fetch existing GeminiResponse
         try:
-            user_profile = CareerGoal.objects.get(user__username=username)
-            entered_skills = user_profile.technical_skills or ""
-        except CareerGoal.DoesNotExist:
-            entered_skills = ""
-            user_profile = CareerGoal(user=request.user, technical_skills="no skill yet")
+            exist = GeminiResonse.objects.get(user__username=username)
+            gemini_response = exist.response  # Assuming 'response' is the field storing the Gemini response
+            print(exist)
+        except GeminiResonse.DoesNotExist:
+            # If not found, create a new response
+            try:
+                user_profile = CareerGoal.objects.get(user__username=username)
+                entered_skills = user_profile.technical_skills or ""
+            except CareerGoal.DoesNotExist:
+                entered_skills = ""
+                user_profile = CareerGoal(user=request.user, technical_skills="no skill yet")
 
-        resume_text = ""
-        if 'resume-upload' in request.FILES:
-            resume_file = request.FILES['resume-upload']
-            resume_text = extract_text_from_resume(resume_file)
+            resume_text = ""
+            if 'resume-upload' in request.FILES:
+                resume_file = request.FILES['resume-upload']
+                resume_text = extract_text_from_resume(resume_file)
 
-        all_skills = entered_skills  
-        if resume_text:
-            extracted_skills = extract_skills_from_text(resume_text)
-            all_skills += ", " + ", ".join(extracted_skills)  
+            all_skills = entered_skills  
+            if resume_text:
+                extracted_skills = extract_skills_from_text(resume_text)
+                all_skills += ", " + ", ".join(extracted_skills)  
 
-        user_profile.technical_skills = all_skills
-        user_profile.save()
+            user_profile.technical_skills = all_skills
+            user_profile.save()
 
-        input_text = f"I have the skills: {all_skills} and i want the job {job}. give me a mark down of the required skills i am missing just give me the mark down alone like #for main branch and ## for seocnd and ### for 3rd remember give me only markdown"
-        gemini_response = get_gemini_response(input_text)
+            input_text = f"I have the skills: {all_skills} and i want the job {job}. give me a mark down of the required skills i am missing just give me the mark down alone like #for main branch and ## for second and ### for 3rd remember give me only markdown dont include any * in the resonse"
+            gemini_response = get_gemini_response(input_text)
+
+            # Save the new response to the database
+            GeminiResonse.objects.create(user=request.user, response=gemini_response)
 
         return render(request, 'roadmap.html', {'gemini_response': gemini_response})
 
