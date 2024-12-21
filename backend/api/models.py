@@ -40,5 +40,9 @@ class CareerGoal(models.Model):
 
 
 class GeminiResonse(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    response = models.CharField(max_length=255)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,default="null") 
+    field = models.CharField(max_length=100, default="null") 
+    response = models.CharField(max_length=755)
+
+    class Meta:
+        unique_together = ('user', 'field')  

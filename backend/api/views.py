@@ -66,7 +66,7 @@ def home(request):
         
         # Try to fetch existing GeminiResponse
         try:
-            exist = GeminiResonse.objects.get(user__username=username)
+            exist = GeminiResonse.objects.get(user__username=username,field = job)
             gemini_response = exist.response  # Assuming 'response' is the field storing the Gemini response
             print(exist)
         except GeminiResonse.DoesNotExist:
@@ -91,11 +91,11 @@ def home(request):
             user_profile.technical_skills = all_skills
             user_profile.save()
 
-            input_text = f"I have the skills: {all_skills} and i want the job {job}. give me a mark down of the required skills i am missing just give me the mark down alone like #for main branch and ## for second and ### for 3rd remember give me only markdown dont include any * in the resonse"
+            input_text = f"I have the skills: {all_skills} and i want the job {job}. give me a mark down of the required skills i am missing just give me the mark down alone like #for main branch and ## for second and ### for 3rd remember give me only markdown only #'s are allowed before every subtopic or topic"
             gemini_response = get_gemini_response(input_text)
 
             # Save the new response to the database
-            GeminiResonse.objects.create(user=request.user, response=gemini_response)
+            GeminiResonse.objects.create(user=request.user, response=gemini_response,field = job)
 
         return render(request, 'roadmap.html', {'gemini_response': gemini_response})
 
