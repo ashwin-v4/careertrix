@@ -9,6 +9,8 @@ from django.contrib.auth import get_backends
 from django.contrib.auth import update_session_auth_hash
 from .gemini_api import get_gemini_response
 from .utils import extract_text_from_resume, extract_skills_from_text
+import re
+
 
 def landing(request):
     if request.user.is_authenticated:
@@ -19,41 +21,50 @@ def landing(request):
 def signin(request):
     if request.user.is_authenticated:
         return redirect('home')
-    
+
     if request.method == "POST":
         name = request.POST.get("check")
-        
+
         if name == "old_user":
             username = request.POST.get('username')
             password = request.POST.get('password')
             user = authenticate(request, username=username, password=password)
-            
+
             if user is not None:
-                # Add backend attribute
                 backend = get_backends()[0].__class__.__name__
                 user.backend = f'django.contrib.auth.backends.{backend}'
                 login(request, user)
                 return redirect('home')
-            
             else:
-                messages.error(request, "Username or password does not exist")  # Use messages.error here
-        
-        else:
+                messages.error(request, "Username or password does not exist")
+
+        else:  # Handle new user signup
             username = request.POST.get('username')
             password = request.POST.get('password')
+            confirm_password = request.POST.get('password2')
             email = request.POST.get('email')
-            
-            if User.objects.filter(username=username).exists():
-                messages.error(request, "User already exists")
+
+            password_regex = re.compile(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$')
+
+            if password != confirm_password:
+                messages.error(request, "Passwords do not match.")
+            elif User.objects.filter(username=username).exists():
+                messages.error(request, "User already exists.")
+            elif not password_regex.match(password):
+                messages.error(request, "Password must be at least 8 characters long, contain at least one uppercase letter, one number, and one special character.")
             else:
-                user = User.objects.create(username=username, password=make_password(password), first_name=username, email=email)
+                user = User.objects.create(
+                    username=username,
+                    password=make_password(password),
+                    first_name=username,
+                    email=email
+                )
                 user.save()
-                # Add backend attribute
                 backend = get_backends()[0].__class__.__name__
                 user.backend = f'django.contrib.auth.backends.{backend}'
                 login(request, user)
                 return redirect('registration')
-    
+
     return render(request, 'login.html')
 
 
