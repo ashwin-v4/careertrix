@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
-    "allauth.socialaccount.providers.google"
+    "allauth.socialaccount.providers.google",
+    "storages",
 ]
 
 
@@ -167,3 +168,19 @@ AUTHENTICATION_BACKENDS = (
 LOGIN_URL = '/api/login/'  # Redirect to the login page
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+
+AWS_STORAGE_BUCKET_NAME='careertrix'
+AWS_CUSTOM_DOMAIN='%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_FILE_OVERWRITE=False
+
+STORAGES = {
+    "default":{
+        "BACKEND":"storages.backends.s3boto3.S3StaticStorage",
+    },
+
+    "staticfiles":{
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+    },
+}
