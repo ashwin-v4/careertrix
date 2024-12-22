@@ -1,20 +1,17 @@
-/* General Styles */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
 body {
     font-family: Arial, sans-serif;
-    background-color: #222831;
+    background-color: #191717;
     color: #EEEEEE;
     padding: 20px;
     /* Wavy Background for entire body */
-    position: relative;
-}
-
-body::before {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(10px, 4vw, 100px);
+    overflow-y: hidden;
+  }
+  
+  body::before {
     content: "";
     position: absolute;
     top: 0;
@@ -24,172 +21,557 @@ body::before {
     background-image: url("https://assets.codepen.io/1468070/Repeatable+Pattern+-+Wavy+Lines.png?format=auto&quality=80");
     background-size: 200%;
     opacity: 0.2; /* Adjust the opacity to make it more subtle */
-    z-index: 0;
+    z-index: -1;
     animation: move-background 50s linear infinite;
-}
-
-/* Keyframes for moving background */
-@keyframes move-background {
+  }
+  
+  @keyframes move-background {
     0% {
-        background-position: 0% 0%;
+      background-position: 0% 0%;
     }
     100% {
-        background-position: -100% 0%;
+      background-position: -300% 0%; /* Speed up the background movement */
     }
-}
-
-
-header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-h1 {
-    font-size: 2.5em;
-    font-weight: bold;
-}
-
-/* Form Container without Wavy Background */
-.form-container {
-    background-color: #393E46; /* Darker background for contrast */
-    padding: 30px;
-    border-radius: 10px;
-    max-width: 1200px;
-    margin: 0 auto;
+  }
+  
+  
+  body:hover > #trailer {
+    opacity: 1;
+  }
+  
+  #trailer {
+    height: 20px;
+    width: 20px;
+    background-color: white;
+    border-radius: 20px;
+  
+    position: fixed;
+    left: 0;
+    top: 0;
+    pointer-events: none; /* Prevent blocking interactions */
+    z-index: 9999; /* Ensure it is above other elements visually */
+    opacity: 0;
+    transition: opacity 500ms ease;
+  
+    display: grid;
+    place-items: center;
+  }
+  
+  #trailer:not([data-type=""]) > #trailer-icon {
+    opacity: 1;
+  }
+  
+  #trailer-icon {
+    font-size: 6px;
+    line-height: 4px;
+    color: #000;
+    opacity: 0;
+    transition: opacity 400ms ease;
+    pointer-events: none;
+  }
+  
+  .interactable {
+    aspect-ratio: 1 / 1.5;
+    width: clamp(120px, 40vmin, 600px);
+    background-position: center 50%;
+    background-size: 100%;
+    opacity: 1;
+    transition: transform 0.8s ease, opacity 0.8s ease;
+    cursor: pointer;
+    margin-top: 125px;
+  }
+  
+  .interactable.left {
+    transform: translateX(-140%); /* Move 5% from the left */
+  }
+  
+  .interactable.right {
+    transform: translateX(140%); /* Move 5% from the right */
+  }
+  
+  .interactable.reset {
+    transform: translateX(0); /* Reset to original position */
+  }
+  
+  .hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; /* Prevent interaction when hidden */
+    transition: opacity 0.8s ease, visibility 0s 0.8s; /* Sync transition */
+  }
+  
+  .visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto; /* Allow interaction when visible */
+    transition: opacity 0.8s ease;
+    z-index: 10;
+  }
+  
+  
+  .interactable:hover {
+    background-size: 105%;
+    opacity: 0.8;
+  }
+  
+  .interactable.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s ease-in-out;
+  }
+  
+  
+  
+  .header {
+    background-color: #222831;
+    color: #EEEEEE;
     width: 100%;
-    position: relative;
-    z-index: 1; /* Ensures the form content stays above the background */
-}
-
-.form-section {
-    margin-bottom: 20px;
-}
-
-h2 {
-    margin-bottom: 10px;
+    padding: 5px 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: top 0.3s;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    height: 60px;
+    width: 80px;
+    margin-right: 10px;
+  }
+  
+  .title {
     color: #00ADB5;
-    font-size: 1.5em;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-input, select, textarea {
-    width: 100%;
-    padding: 15px; /* Increased padding for larger input fields */
-    margin-bottom: 10px;
-    border: 1px solid #00ADB5;
-    border-radius: 5px;
-    background-color: #EEEEEE;
-    color: #222831;
-    font-size: 1em; /* Larger font for better readability on wide forms */
-}
-
-textarea {
-    resize: vertical;
-}
-
-button {
+    font-size: 30px;
+    font-weight: 700;
+    margin-right: 5px;
+    margin-left: 0px;
+  }
+  
+  .navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+  }
+  
+  .navbar ul li a {
+    color: #EEEEEE;
+    padding: 10px 15px;
+    font-size: 20px;
+    text-decoration: none;
+  }
+  
+  .navbar ul li a:hover {
     background-color: #00ADB5;
     color: #222831;
-    padding: 12px 20px;
+    border-radius: 5px;
+  }
+  
+  .logout-btn {
+    background-color: #00ADB5;
+    color: #EEEEEE;
+    padding: 10px 20px;
+    font-size: 20px;
+    width: 100px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  .logout-btn:hover {
+    background-color: var(--purple);
+  }
+  
+  @keyframes background-pan {
+    from {
+      background-position: 0% center;
+    }
+    
+    to {
+      background-position: -200% center;
+    }
+  }
+  
+  @keyframes scale {
+    from, to {
+      transform: scale(0);
+    }
+    
+    50% {
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    
+    to {
+      transform: rotate(180deg);
+    }
+  }
+  
+  h1 {
+    color: white;
+    font-size: clamp(2em, 2vw, 4em);
+    font-weight: 400;
+    margin: 0px;
+    padding: 2.5px;
+    text-align: center;
+  }
+  
+  h1 > .magic {
+    display: inline-block;
+    position: relative;
+  }
+  
+  h1 > .magic > .magic-star {
+    --size: clamp(20px, 1.5vw, 30px);
+    
+    animation: scale 700ms ease forwards;
+    display: block;
+    height: var(--size);
+    left: var(--star-left);
+    position: absolute;
+    top: var(--star-top);
+    width: var(--size);
+  }
+  
+  h1 > .magic > .magic-star > svg {
+    animation: rotate 1000ms linear infinite;
+    display: block;
+    opacity: 0.7;
+  }
+  
+  h1 > .magic > .magic-star > svg > path {
+    fill: var(--violet);
+  }
+  
+  h1 > .magic > .magic-text {
+    animation: background-pan 3s linear infinite;
+    background: linear-gradient(
+      to right,
+      var(--purple),
+      var(--violet),
+      var(--pink),
+      var(--purple)
+    );
+    background-size: 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    white-space: nowrap;
+  }
+  
+  :root {  
+    --purple: rgb(123, 31, 162);
+    --violet: rgb(103, 58, 183);
+    --pink: rgb(244, 143, 177);
+    --green: rgb(42, 252, 152);
+    --blue: rgb(41, 121, 255);
+  }
+  
+  /* Resume Upload Tile */
+  .tile {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #222831;
+    color: #eeeeee;
+    width: 80%;
+    max-width: 500px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    z-index: 2;
+  }
+  
+  .tile.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .tile button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #00adb5;
     border: none;
     border-radius: 5px;
+    color: #eeeeee;
     cursor: pointer;
-    font-size: 1em;
-}
-
-button:hover {
-    background-color: #00CED1;
-}
-
-/* Add More Buttons */
-.add-more {
-    display: inline-block;
-    background-color: #00ADB5;
-    color: #222831;
-    padding: 8px 15px; /* Increased padding */
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-}
-
-.add-more:hover {
-    background-color: #00CED1;
-}
-
-/* Responsive Design */
-@media (max-width: 1024px) {
-    .form-container {
-        padding: 20px;
-        max-width: 900px; /* Slightly narrower for tablet view */
-    }
-
-    h1 {
-        font-size: 2em;
-    }
-
-    h2 {
-        font-size: 1.2em;
-    }
-}
-
-@media (max-width: 768px) {
-    .form-container {
-        padding: 15px;
-        max-width: 700px; /* Narrower for mobile view */
-    }
-
-    h1 {
-        font-size: 1.8em;
-    }
-
-    h2 {
-        font-size: 1.1em;
-    }
-}
-
-@media (max-width: 576px) {
-    .form-container {
-        padding: 10px;
-        max-width: 100%; /* Full width for very small screens */
-    }
-
-    h1 {
-        font-size: 1.5em;
-    }
-
-    h2 {
-        font-size: 1em;
-    }
-}
-.availability-options {
+  }
+  
+  .tile button:hover {
+    background-color: #007f87;
+  }
+  
+  :root {
+    --primary-color: mediumslateblue;
+  }
+  
+    
+  h1, h2, h3, p {
+    margin: 0rem;
+  }
+  
+  .card {
+    width: 700px;
+    height: 500px;
+    position: fixed;
+    background-color: rgb(16 16 16);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 1.5rem;
+    padding: 1rem;
+    margin-top: 125px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    z-index: 10;
+  }
+  
+  .card.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  
+  
+  .card.show {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease, visibility 0s;
+  }
+  
+  .card:after {  
+    content: "";
+    height: 70px;
+    width: 1px;  
+    position: absolute;  
+    left: -1px;
+    top: 65%;
+    transition: top, opacity;
+    transition-duration: 600ms;
+    transition-timing-function: ease;
+    background: linear-gradient(
+      transparent,
+      var(--primary-color),
+      transparent
+    );
+    opacity: 0;
+  }
+  
+  .card:after {  
+    top: 65%;
+    opacity: 0;
+  }
+  
+  .card:hover:after {
+    top: 25%;
+    opacity: 1;
+  }
+  
+  .card-content {  
     display: flex;
-    justify-content: space-between; /* Evenly distributes checkboxes */
-    flex-wrap: wrap; /* Allows checkboxes to wrap if necessary */
-    align-items: center; /* Vertically center aligns items */
-    gap: 10px; /* Adjust this value for more or less space between checkboxes */
-    margin-bottom: 20px;
-    padding: 0 20px; /* Optional padding for the container */
-    width: 100%; /* Use all available width */
-}
-
-.availability-options label {
-    display: flex; /* Changed to flex for better alignment */
-    align-items: center; /* Ensures checkbox is vertically centered with text */
-    white-space: nowrap; /* Prevents text from breaking into multiple lines */
-}
-
-.availability-options input[type="checkbox"] {
-    margin-right: 10px; /* Adds space specifically on the right of the checkbox */
-}
-
-
-label
-{
-    margin-left: 5px;
-}
-
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    background-image: radial-gradient(
+      rgba(255, 255, 255, 0.1) 1px, 
+      transparent 1px
+    );
+    background-position: 50% 50%;
+    background-size: 1.1rem 1.1rem;
+    padding: 4rem;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    height: 380px;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  .card-content > :is(h1, h3, p, label, select) {
+    text-align: center;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+  }
+  
+  .card-content > h1 {
+    color: rgb(250 249 246); 
+    font-size: 2.6rem;
+  }
+  
+  .card-content > h3 {
+    color: var(--primary-color);
+    text-transform: uppercase;
+    font-size: 0.76rem;
+  }
+  
+  .card-content > p {
+    color: rgb(255 255 255 / 75%);
+    line-height: 1.5rem;
+  }
+  
+  @media(max-width: 700px) {
+    .card {
+      width: calc(100% - 2rem);
+      margin: 0rem 1rem;
+      padding: 0.75rem;
+      border-radius: 1rem;
+      transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    }
+  }
+  
+  @media(max-width: 600px) {
+    .card-content {
+      padding: 3rem;
+    }
+    
+    .card-content > h1 {
+      font-size: 2.2rem;
+    }
+  }
+  
+  button {
+    background-color: #00ADB5;  /* Matching the header button style */
+    color: #EEEEEE;
+    padding: 10px 20px;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 5px;
+    margin-left: 250px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #007f87;  /* Slightly darker shade for hover effect */
+  }
+  
+  /* Styling form text (labels, headings, etc.) */
+  form label,
+  form h1,
+  form p {
+    color: #EEEEEE;
+    font-size: 18px;
+    margin-bottom: 10px;
+    margin-left: 25px;
+  }
+  
+  /* Styling input fields */
+  /* Styling input fields */
+  input[type="text"], input[type="number"], input[type="file"], input[type="date"], input[type="email"], textarea, select {
+    background-color: #222831;
+    color: rgb(118, 118, 118);
+    border: 1px solid #555555;
+    padding: 6px 8px;
+    width: 50%; /* Ensures the select fields match the input field width */
+    border-radius: 5px;
+    font-size: 12px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    box-sizing: border-box; /* Ensures padding and border are included in the width calculation */
+  }
+  
+  input[type="text"]:focus, input[type="file"], input[type="number"]:focus, input[type="date"]:focus, input[type="email"]:focus, textarea:focus, select:focus {
+    border-color: #00ADB5;
+    outline: none;
+  }
+  
+  /* Ensure form sections are aligned horizontally */
+  .form-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  
+  /* Labels and inputs are on the same line */
+  .form-section label {
+    margin-right: 10px;
+    width: 200px;
+  }
+  
+  .form-section input,
+  .form-section select {
+    padding: 8px;
+    width: 50%; /* Consistent width for both input and select fields */
+    box-sizing: border-box; /* Ensures padding and border are accounted for */
+  }
+  
+  
+  input[type="file"] {
+    font-size: 1rem;
+    padding: 10px;
+    width: 250px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  /* Ensure form sections are aligned horizontally */
+  .form-section {
+    display: flex;
+    flex-wrap: wrap; /* Allows for flexibility with long inputs */
+    align-items: center;
+  }
+  
+  /* Labels and inputs are on the same line */
+  .form-section label {
+    margin-right: 10px;
+    width: 200px; /* You can adjust the width of the label */
+  }
+  
+  .form-section input,
+  .form-section select {
+    padding: 8px;
+    width: 300px; /* Adjust input width as needed */
+  }
+  
+  /* Center the file input */
+  input[type="file"] {
+    margin: 0 auto;
+    display: block;
+    font-size: 22px;
+    width: 300px;
+    height: 25px; /* You can adjust the height as needed */
+  }
+  
+  
+  .card-content h3,
+  .card-content select,
+  .card-content label,
+  .card-content h1,
+  .card-content p,
+  .card-content button,
+  .card-content input {
+      opacity: 0;
+      transform: opacity 0.5s ease-in-out, translateY(20px);
+      transition: all 2.0s ease; /* Match duration and easing */
+  }
+  
+  .card.visible .card-content h3,
+  .card-content select,
+  .card-content label,
+  .card.visible .card-content h1,
+  .card.visible .card-content p,
+  .card.visible .card-content button,
+  .card.visible .card-content input {
+      opacity: 1;
+      transform: translateY(0);
+  }
+  
