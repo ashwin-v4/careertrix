@@ -49,9 +49,9 @@
             </ul>
           </nav>
           <!-- Logout Button -->
-          <a href="" id="profile-user"
-            ><i class="fa fa-user-circle fa-2x"></i><br />{{ request.user.username }}</a
-          >
+          <a href="{% url 'setting' %}" id="profile-user"
+          ><i class="fa fa-user-circle fa-2x"></i><br />{{ request.user.username }}</a
+        >
           <a href="{% url 'signout' %}" class="logout-btn" style="margin-right: 50px;">Logout</a>
         </div>
         </div>
@@ -89,13 +89,16 @@
           method="post"
           action="{% url 'registration' %}"
           enctype="multipart/form-data"
-          ><input type="file" name="resume-upload" style="height: 50px; margin-bottom: 25px;" id="resume-upload" />
+          >
+          {% csrf_token %}
+          <input type="hidden" name="check" id="check" value="resume">
+          <input type="file" name="resume-upload" id="resume-upload" style="height: 50px; margin-bottom: 25px;" id="resume-upload" />
           <p style="margin-bottom: 25px;">
             All datas shared here will only be used for user experince alone and
-            improve the accuracy of the results generated for the user. Don not
-            share sensitive data and maintain privacy.
+            improve the accuracy of the results generated for the user.
           </p>
-          <button type="submit">Submit</button></form>
+          <button type="submit">Submit</button>
+        </form>
         </div>
       </div>
   
@@ -106,11 +109,11 @@
           <form
           id="career-goals-form"
           method="post"
-          action="{% url 'registration' %}"
+          action=""
           enctype="multipart/form-data"
           >
             {% csrf_token %}
-            
+            <input type="hidden" name="check" id="check" value="text">
             <!-- Job Details Section -->
             <section class="form-section">
               <label for="current-job-title">Current Job:</label>

@@ -11,22 +11,22 @@ class CareerGoal(models.Model):
     ]
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    current_job_title = models.CharField(max_length=255)
-    goal_job_title = models.CharField(max_length=255)
-    education = models.CharField(max_length=255)
-    education_field = models.CharField(max_length=255)
-    graduation_year = models.DateField()
-    technical_skills = models.TextField()
-    soft_skills = models.TextField()
-    experience_job_title = models.CharField(max_length=255)
-    experience_duration = models.IntegerField()
-    year_of_resignation = models.DateField()
-    city1 = models.CharField(max_length=100, null=True) 
-    city2 = models.CharField(max_length=100, null=True) 
-    city3 = models.CharField(max_length=100, null=True) 
-    availability = models.CharField(max_length=10, choices=AVAILABILITY_CHOICES)
-    
-    # Custom upload path for storing resume as username.pdf
+    current_job_title = models.CharField(max_length=255, null=True)
+    goal_job_title = models.CharField(max_length=255, null=True)
+    education = models.CharField(max_length=255, null=True)
+    education_field = models.CharField(max_length=255, null=True)
+    graduation_year = models.DateField(null=True)
+    technical_skills = models.TextField(null=True, blank=True)
+    soft_skills = models.TextField(null=True, blank=True)
+    experience_job_title = models.CharField(max_length=255, null=True)
+    experience_duration = models.IntegerField(null=True)
+    year_of_resignation = models.DateField(null=True, blank=True)
+    city1 = models.CharField(max_length=100, null=True, blank=True)
+    city2 = models.CharField(max_length=100, null=True, blank=True)
+    city3 = models.CharField(max_length=100, null=True, blank=True)
+    availability = models.CharField(max_length=10, choices=AVAILABILITY_CHOICES, null=True, blank=True)
+
+
     def user_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/resumes/username.pdf
         return f'resumes/{instance.user.username}.pdf'
@@ -35,6 +35,7 @@ class CareerGoal(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s Career Goals"
+
 
 
 

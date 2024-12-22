@@ -52,12 +52,11 @@
             <li><a href="#job-tracking">Job Tracking</a></li>
             <li><a href="#job-alerts">Job Alerts</a></li>
             <li><a href="#mock-interview">Mock Interview</a></li>
-            <li><a href="#mentorship">Networking</a></li>
-            <li><a href="{% url 'setting' %}">Profile</a></li>
+            <li><a href="{% url 'registration' %}">Your Details</a></li>
           </ul>
         </nav>
         <!-- Logout Button -->
-        <a href="" id="profile-user"
+        <a href="{% url 'setting' %}" id="profile-user"
           ><i class="fa fa-user-circle fa-2x"></i><br />{{ request.user.username }}</a
         >
         <a href="{% url 'signout' %}" class="logout-btn">Logout</a>

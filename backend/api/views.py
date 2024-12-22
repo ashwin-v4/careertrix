@@ -115,34 +115,33 @@ def home(request):
 @login_required
 def registration(request):
     if request.method == 'POST':
-        career_goal = CareerGoal(
-            user=request.user,
-            current_job_title=request.POST.get('current-job-title'),
-            goal_job_title=request.POST.get('goal-job-title'),
-            education=request.POST.get('education'),
-            education_field=request.POST.get('education-field'),
-            graduation_year=request.POST.get('graduation-year'),
-            technical_skills=request.POST.get('technical-skills'),
-            soft_skills=request.POST.get('soft-skills'),
-            experience_job_title=request.POST.get('experience-job-title'),
-            experience_duration=request.POST.get('experience-duration'),
-            year_of_resignation=request.POST.get('year-of-resignation'),
-            city1=request.POST.get('city1'),
-            city2=request.POST.get('city2'),
-            city3=request.POST.get('city3'),
-            availability=request.POST.get('availability'),
-            resume=request.FILES.get('resume-upload')
-        )
+        check = request.POST.get('check')
+        career_goal, created = CareerGoal.objects.get_or_create(user=request.user)
 
-        if career_goal.resume:
-            resume_file = career_goal.resume
-            resume_text = extract_text_from_resume(resume_file)  
-            extracted_skills = extract_skills_from_text(resume_text)
-            if extracted_skills:
-                career_goal.technical_skills += ", " + ", ".join(extracted_skills)  
+        if check == 'resume':
+            resume_file = request.FILES.get('resume-upload')
+            if resume_file:
+                career_goal.resume = resume_file
+                resume_text = extract_text_from_resume(resume_file)
+                extracted_skills = extract_skills_from_text(resume_text)
+                if extracted_skills:
+                    career_goal.technical_skills = (
+                        career_goal.technical_skills or ""
+                    ) + ", " + ", ".join(extracted_skills)
+
+        elif check == 'text': 
+            career_goal.current_job_title = request.POST.get('current-job-title')
+            career_goal.education = request.POST.get('education')
+            career_goal.education_field = request.POST.get('education-field')
+            career_goal.graduation_year = request.POST.get('graduation-year')
+            career_goal.technical_skills = request.POST.get('technical-skills')
+            career_goal.soft_skills = request.POST.get('soft-skills')
+            career_goal.experience_job_title = request.POST.get('experience-job-title')
+            career_goal.experience_duration = request.POST.get('experience-duration')
 
         career_goal.save()
         return redirect('home')
+
     return render(request, 'register.html')
 
 
